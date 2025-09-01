@@ -1,3 +1,15 @@
+> [!NOTE]
+> This is a fork of [akinsho/git-conflict.nvim](https://github.com/akinsho/git-conflict.nvim). Since the original repository hasn't been updated in a while, I decided to fork it in order to "merge" a few good PRs and add some updates myself. Mainly, to make it compatible with new NeoVim APIs and Lua standards. Thanks to the following PRs in the original repo for their code and inspiration:
+>
+> - [#106](https://github.com/akinsho/git-conflict.nvim/pull/106)
+> - [#108](https://github.com/akinsho/git-conflict.nvim/pull/108)
+> - [#109](https://github.com/akinsho/git-conflict.nvim/pull/109)
+> - [#112](https://github.com/akinsho/git-conflict.nvim/pull/112)
+>
+> If you want to support the original author, please consider starring the original repo. Hopefully they will come back to maintain it in the future :)
+>
+> Readme below is left unchanged.
+
 # git-conflict.nvim
 
 https://user-images.githubusercontent.com/22454918/159362564-a66d8c23-f7dc-4d1d-8e88-c5c73a49047e.mov
@@ -137,7 +149,7 @@ purposes.
 
 ```vimdoc
     Returns the amount of conflicts in a given buffer.
-    
+
 
     Parameters:
 	{bufnr} (number) Specify the buffer for which you want to know the
@@ -146,6 +158,7 @@ purposes.
     Return:
 	number: The amount of conflicts.
 ```
+
 </details>
 
 ## Issues
