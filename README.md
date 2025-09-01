@@ -1,5 +1,5 @@
 > [!NOTE]
-> This is a fork of [akinsho/git-conflict.nvim](https://github.com/akinsho/git-conflict.nvim). Since the original repository hasn't been updated in a while, I decided to fork it in order to "merge" a few good PRs and add some updates myself. Mainly, to make it compatible with new NeoVim APIs and Lua standards. Thanks to the following PRs in the original repo for their code and inspiration:
+> This is a fork of [akinsho/git-conflict.nvim](https://github.com/akinsho/git-conflict.nvim). Since the original repository hasn't been updated in a while, I decided to fork it in order to "merge" a few good PRs and add some updates myself (including personal nit-picks). Mainly, to make it compatible with new NeoVim APIs and Lua standards. Thanks to the following PRs in the original repo for their code and inspiration:
 >
 > - [#106](https://github.com/akinsho/git-conflict.nvim/pull/106)
 > - [#108](https://github.com/akinsho/git-conflict.nvim/pull/108)

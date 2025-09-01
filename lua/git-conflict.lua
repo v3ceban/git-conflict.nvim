@@ -530,79 +530,90 @@ end
 -----------------------------------------------------------------------------//
 
 local function set_plug_mappings()
-  local function opts(desc) return { silent = true, desc = 'Git Conflict: ' .. desc } end
+  local function opts(desc) return { silent = true, desc = 'git ' .. desc } end
 
   map(
     { 'n', 'v' },
     '<Plug>(git-conflict-ours)',
     function() M.choose('ours') end,
-    opts('Choose Ours')
+    opts('choose our commit')
   )
   map(
     { 'n', 'v' },
     '<Plug>(git-conflict-both)',
     function() M.choose('both') end,
-    opts('Choose Both')
+    opts('choose both commits')
   )
   map(
     { 'n', 'v' },
     '<Plug>(git-conflict-base)',
     function() M.choose('base') end,
-    opts('Choose Base')
+    opts('choose base commit')
   )
   map(
     { 'n', 'v' },
     '<Plug>(git-conflict-none)',
     function() M.choose('none') end,
-    opts('Choose None')
+    opts('choose none commits')
   )
   map(
     { 'n', 'v' },
     '<Plug>(git-conflict-theirs)',
     function() M.choose('theirs') end,
-    opts('Choose Theirs')
+    opts('choose their commit')
   )
   map(
     'n',
     '<Plug>(git-conflict-next-conflict)',
     function() M.find_next('ours') end,
-    opts('Next Conflict')
+    opts('next conflict')
   )
   map(
     'n',
     '<Plug>(git-conflict-prev-conflict)',
     function() M.find_prev('ours') end,
-    opts('Previous Conflict')
+    opts('previous conflict')
   )
 end
 
 local function setup_buffer_mappings(bufnr)
-  local function opts(desc)
-    return { silent = true, buffer = bufnr, desc = 'Git Conflict: ' .. desc }
-  end
+  local function opts(desc) return { silent = true, buffer = bufnr, desc = 'git ' .. desc } end
 
-  map({ 'n', 'v' }, config.default_mappings.ours, '<Plug>(git-conflict-ours)', opts('Choose Ours'))
-  map({ 'n', 'v' }, config.default_mappings.both, '<Plug>(git-conflict-both)', opts('Choose Both'))
-  map({ 'n', 'v' }, config.default_mappings.none, '<Plug>(git-conflict-none)', opts('Choose None'))
+  map(
+    { 'n', 'v' },
+    config.default_mappings.ours,
+    '<Plug>(git-conflict-ours)',
+    opts('choose our commit')
+  )
+  map(
+    { 'n', 'v' },
+    config.default_mappings.both,
+    '<Plug>(git-conflict-both)',
+    opts('choose both commits')
+  )
+  map(
+    { 'n', 'v' },
+    config.default_mappings.none,
+    '<Plug>(git-conflict-none)',
+    opts('choose none commits')
+  )
   map(
     { 'n', 'v' },
     config.default_mappings.theirs,
     '<Plug>(git-conflict-theirs)',
-    opts('Choose Theirs')
+    opts('choose their commit')
   )
-  map({ 'v', 'v' }, config.default_mappings.ours, '<Plug>(git-conflict-ours)', opts('Choose Ours'))
-  -- map('V', config.default_mappings.ours, '<Plug>(git-conflict-ours)', opts('Choose Ours'))
   map(
     'n',
     config.default_mappings.prev,
     '<Plug>(git-conflict-prev-conflict)',
-    opts('Previous Conflict')
+    opts('previous conflict')
   )
   map(
     'n',
     config.default_mappings.next,
     '<Plug>(git-conflict-next-conflict)',
-    opts('Next Conflict')
+    opts('next conflict')
   )
   vim.b[bufnr].conflict_mappings_set = true
 end
