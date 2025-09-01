@@ -39,7 +39,7 @@ function M.throttle(timeout, func)
     if not running then
       func(...)
       running = true
-      timer:start(timeout, 0, function() running = false end)
+      if timer then timer:start(timeout, 0, function() running = false end) end
     end
   end
 end
@@ -67,10 +67,20 @@ function M.is_valid_buf(bufnr)
 end
 
 ---@param name string?
----@return table<string, string>
+---@return table<string, integer>
 function M.get_hl(name)
   if not name then return {} end
-  return api.nvim_get_hl_by_name(name, true)
+  local hl = api.nvim_get_hl(0, { name = name })
+  local result = {}
+
+  if hl.fg then result.foreground = hl.fg end
+  if hl.bg then result.background = hl.bg end
+
+  for key, value in pairs(hl) do
+    if key ~= 'fg' and key ~= 'bg' then result[key] = value end
+  end
+
+  return result
 end
 
 return M

@@ -173,7 +173,10 @@ local state = {
 ---@param dir any
 ---@param callback fun(data: string)
 local function get_git_root(dir, callback)
-  job({ 'git', '-C', dir, 'rev-parse', '--show-toplevel' }, function(data) callback(data[1]) end)
+  job(
+    table.concat({ 'git', '-C', dir, 'rev-parse', '--show-toplevel' }, ' '),
+    function(data) callback(data[1]) end
+  )
 end
 
 --- Get a list of the conflicted files within the specified directory
@@ -184,7 +187,7 @@ end
 ---@param dir string?
 ---@param callback fun(files: table<string, integer[]>, string)
 local function get_conflicted_files(dir, callback)
-  local cmd = {
+  local cmd = table.concat({
     'git',
     '-C',
     dir,
@@ -192,7 +195,7 @@ local function get_conflicted_files(dir, callback)
     ('--line-prefix=%s%s'):format(dir, sep),
     '--name-only',
     '--diff-filter=U',
-  }
+  }, ' ')
   job(cmd, function(data)
     local files = {}
     for _, filename in ipairs(data) do
@@ -447,7 +450,7 @@ local function fetch_conflicts(buf)
   end)
 end
 
----@type table<string, userdata>
+---@type table<string, uv.uv_fs_event_t>
 local watchers = {}
 
 local on_throttled_change = utils.throttle(1000, function(dir, err, change)
@@ -473,7 +476,6 @@ local function watch_gitdir(dir)
   -- Stop if there is already a watcher running
   if watchers[dir] then return end
 
-  ---@type userdata
   watchers[dir] = vim.loop.new_fs_event()
   watchers[dir]:start(
     dir,
@@ -712,7 +714,7 @@ function M.setup(user_config)
   })
 
   api.nvim_set_decoration_provider(NAMESPACE, {
-    on_buf = function(_, bufnr, _) return utils.is_valid_buf(bufnr) end,
+    on_buf = function(_, bufnr, _) utils.is_valid_buf(bufnr) end,
     on_win = function(_, _, bufnr, _, _)
       if visited_buffers[bufnr] then process(bufnr) end
     end,
